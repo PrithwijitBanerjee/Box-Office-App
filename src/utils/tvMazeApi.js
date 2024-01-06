@@ -17,4 +17,7 @@ export const getShowsRes = query => apiGet(`${process.env.REACT_APP_BASE_LIVE_UR
 export const getPeopleRes = query => apiGet(`${process.env.REACT_APP_BASE_LIVE_URL}/search/people?q=${query}`);
 
 //get particular movie detail based on show id........
-export const getShowById = id => apiGet(`${process.env.REACT_APP_BASE_LIVE_URL}/shows/${id}`);
+// export const getShowById = id => apiGet(`${process.env.REACT_APP_BASE_LIVE_URL}/shows/${id}`);
+
+//get particular movie detail along with embedded seasons and cast information based on show id........
+export const getShowById = id => apiGet(`${process.env.REACT_APP_BASE_LIVE_URL}/shows/${id}?embed[]=seasons&embed[]=cast`);

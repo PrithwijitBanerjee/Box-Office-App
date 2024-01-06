@@ -2,6 +2,10 @@
 import { useParams } from "react-router-dom"
 import { getShowById } from "../../utils/tvMazeApi";
 import { useQuery } from '@tanstack/react-query'
+import ShowMain from "./ShowMain";
+import Details from "./Details";
+import Seasons from "./Seasons";
+import Cast from "./Cast";
 
 // const useShowById = (showId) => { //custom hooks...
 //   const [showDetail, setShowDetail] = useState({});
@@ -29,43 +33,61 @@ import { useQuery } from '@tanstack/react-query'
 // }
 
 const ShowDetail = () => {
-  const {showId} = useParams(); 
+  const { showId } = useParams();
   // const {showDetail,fetchErr} = useShowById(showId);
 
   //useQuery is an abstract custom hooks...
-  const {error:fetchErr, data:showDetail,isLoading} = useQuery({
-    queryKey:['showId',showId],
+  const { error: fetchErr, data: showDetail, isLoading } = useQuery({
+    queryKey: ['showId', showId],
     queryFn: () => getShowById(showId),
     refetchOnWindowFocus: false,
   });
 
-  
-  if(fetchErr)
-  {
+
+  if (fetchErr) {
     return (<>
       <div>{fetchErr?.message}</div>
     </>)
   }
-  if(showDetail)
-  {
+  if (showDetail) {
     return (<>
+      <div>
         <div>
-            <div>
-                <img src={showDetail?.image && showDetail?.image?.medium} alt={showDetail?.name}/>
-            </div>
-            <h1>{showDetail?.name}</h1>
-            <h6>Ratings: {showDetail?.rating ? showDetail?.rating?.average : null}</h6>
+          <ShowMain
+            image={showDetail?.image}
+            name={showDetail?.name}
+            rating={showDetail?.rating}
+            summary={showDetail?.summary}
+            genres={showDetail?.genres}
+          />
         </div>
+        <div>
+          <h2>Details:</h2>
+          <Details
+            status={showDetail?.status}
+            premiered={showDetail?.premiered}
+            network={showDetail?.network}
+          />
+        </div>
+        <div>
+            <h2>Seasons:</h2>
+            <Seasons seasons={showDetail?._embedded?.seasons}/>
+        </div>
+        <div>
+          <h2>Cast:</h2>
+          <Cast cast={showDetail?._embedded?.cast}/>
+        </div>
+      </div>
     </>)
   }
   return (
-        <>
-            <div>
-                {
-                  isLoading && <h2>Loading....</h2>
-                }
-            </div>
-        </>
+    <>
+      <div>
+        {
+          isLoading && <h2>Loading....</h2>
+        }
+      </div>
+    </>
   )
 }
 
