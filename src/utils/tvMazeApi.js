@@ -21,3 +21,17 @@ export const getPeopleRes = query => apiGet(`${process.env.REACT_APP_BASE_LIVE_U
 
 //get particular movie detail along with embedded seasons and cast information based on show id........
 export const getShowById = id => apiGet(`${process.env.REACT_APP_BASE_LIVE_URL}/shows/${id}?embed[]=seasons&embed[]=cast`);
+
+
+export const getShowByIds = showIdArr => {
+     // const promisesArr = showIdArr?.map(id => {
+    //         return  apiGet(`${process.env.REACT_APP_BASE_LIVE_URL}/shows/${id}`);
+    // });
+
+    // return Promise.all(promisesArr);
+    
+    return Promise.all(showIdArr?.map(id => {
+        return apiGet(`${process.env.REACT_APP_BASE_LIVE_URL}/shows/${id}`);
+    }));
+}
+

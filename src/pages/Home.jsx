@@ -4,6 +4,7 @@ import FormElement from "../components/FormElement";
 import ShowGrid from "../components/shows/ShowGrid";
 import ActorGrid from "../components/actors/ActorGrid";
 import {useQuery} from "@tanstack/react-query"
+import { useSearchStr } from "../lib/useSearchStr";
 const Home = () => {
   const [filter, setFilter] = useState({})
 
@@ -14,7 +15,8 @@ const Home = () => {
       enabled: !!filter.q || !!filter.statusRes,
       refetchOnWindowFocus: false
   })
-  const [searchStr, setSearchStr] = useState('');
+  // const [searchStr, setSearchStr] = useState('');
+     const [searchStr, setSearchStr] = useSearchStr(); //custom hooks... 
   // const [apiRes, setApiRes] = useState(null);
 
   const [statusRes, setStatusRes] = useState('shows');
