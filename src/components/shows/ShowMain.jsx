@@ -1,33 +1,33 @@
 import { styled } from "styled-components"
 import { StarIcon } from "../../styled_css/common/StarIcon";
 const ShowMain = ({ image, name, rating, summary, genres }) => {
-    return (
-        <MainDataWrapper>
-            <div className="img-wrap">
-                <img src={image ? image?.original : '/box-office-img-placeholder.png'} alt="..." />
-            </div>
-            <DataSection>
-                <Headline>
-                    <h1>{name}</h1>
-                </Headline>
-                <div>
-                    <StarIcon active/>
-                    <span><strong>rating: {!!rating && (rating.average || 'N/A')}</strong></span>
-                </div>
-                <Summary dangerouslySetInnerHTML={{ __html: summary }} />
-                <div>
-                    Genrics:
-                    <Genres>
-                        {
-                            !!genres && genres?.map(movieType => (
-                                <span key={movieType}> {movieType} </span>
-                            ))
-                        }
-                    </Genres>
-                </div>
-            </DataSection>
-        </MainDataWrapper>
-    )
+  return (
+    <MainDataWrapper>
+      <div className="img-wrap">
+        <img src={image ? image?.original : '/box-office-img-placeholder.png'} alt="..." />
+      </div>
+      <DataSection>
+        <Headline>
+          <h1>{name}</h1>
+          <div>
+            <StarIcon active />
+            <span>{!!rating && (rating.average || 'N/A')}</span>
+          </div>
+        </Headline>
+        <Summary dangerouslySetInnerHTML={{ __html: summary }} />
+        <div>
+          Genrics:
+          <Genres>
+            {
+              !!genres && genres?.map(movieType => (
+                <span key={movieType}> {movieType} </span>
+              ))
+            }
+          </Genres>
+        </div>
+      </DataSection>
+    </MainDataWrapper>
+  )
 }
 
 export default ShowMain

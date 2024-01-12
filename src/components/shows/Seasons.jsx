@@ -1,29 +1,33 @@
 import styled from 'styled-components';
 const Seasons = ({ seasons }) => {
-    return (
-        <SeasonsWrapper>
-            <p>Seasons in total: {seasons?.length}</p>
-            <p>Episodes in total: {seasons?.reduce((sum, season) => sum + season.episodeOrder, 0)}</p>
-            <SeasonList>
-                {
-                    seasons?.map(item => (
-                        <div key={item?.id}>
-                            <div className='left'>
-                                <p>Season {item?.number}</p>
-                                <p>Episodes: {item?.episodeOrder}</p>
-                            </div>
-                            <div className='right'>
-                                Aired: {' '}
-                                <strong>
-                                    {item?.premiereDate} - {item?.endDate}
-                                </strong>
-                            </div>
-                        </div>
-                    ))
-                }
-            </SeasonList>
-        </SeasonsWrapper>
-    )
+  return (
+    <SeasonsWrapper>
+      <p>Seasons in total: {seasons.length}</p>
+
+      <p>
+        Episodes in total:{' '}
+        {seasons.reduce((sum, season) => sum + season.episodeOrder, 0)}
+      </p>
+
+      <SeasonList>
+        {seasons.map(season => (
+          <div key={season.id} className="season-item">
+            <div className="left">
+              <p>Season {season.number}</p>
+              <p>Episodes: {season.episodeOrder}</p>
+            </div>
+
+            <div className="right">
+              Aired:{' '}
+              <strong>
+                {season.premiereDate} - {season.endDate}
+              </strong>
+            </div>
+          </div>
+        ))}
+      </SeasonList>
+    </SeasonsWrapper>
+  )
 }
 
 export default Seasons
