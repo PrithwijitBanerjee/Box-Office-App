@@ -6,7 +6,8 @@ import ShowMain from "./ShowMain";
 import Details from "./Details";
 import Seasons from "./Seasons";
 import Cast from "./Cast";
-
+import styled from 'styled-components';
+import { TextCenter } from "../../styled_css/common/TextCenter";
 // const useShowById = (showId) => { //custom hooks...
 //   const [showDetail, setShowDetail] = useState({});
 //   const [fetchErr, setFetchErr] = useState(null);
@@ -51,10 +52,10 @@ const ShowDetail = () => {
   }
   if (showDetail) {
     return (<>
-      <div>
-        <div>
+      <ShowDetailPageWrapper>
+        <BackHomeWrapper>
           <Link to={'/'}>Go Back To Home</Link>
-        </div>
+        </BackHomeWrapper>
         <div>
           <ShowMain
             image={showDetail?.image}
@@ -64,30 +65,30 @@ const ShowDetail = () => {
             genres={showDetail?.genres}
           />
         </div>
-        <div>
+        <InfoBlock>
           <h2>Details:</h2>
           <Details
             status={showDetail?.status}
             premiered={showDetail?.premiered}
             network={showDetail?.network}
           />
-        </div>
-        <div>
+        </InfoBlock>
+        <InfoBlock>
             <h2>Seasons:</h2>
             <Seasons seasons={showDetail?._embedded?.seasons}/>
-        </div>
-        <div>
+        </InfoBlock>
+        <InfoBlock>
           <h2>Cast:</h2>
           <Cast cast={showDetail?._embedded?.cast}/>
-        </div>
-      </div>
+        </InfoBlock>
+      </ShowDetailPageWrapper>
     </>)
   }
   return (
     <>
       <div>
         {
-          isLoading && <h2>Loading....</h2>
+          isLoading && <TextCenter>Loading....</TextCenter>
         }
       </div>
     </>
@@ -95,3 +96,35 @@ const ShowDetail = () => {
 }
 
 export default ShowDetail
+
+const BackHomeWrapper = styled.div`
+  margin-bottom: 30px;
+  text-align: left;
+  a {
+    padding: 10px;
+    color: ${({ theme }) => theme.mainColors.dark};
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+const ShowDetailPageWrapper = styled.div`
+  margin: auto;
+  @media only screen and (min-width: 768px) {
+    max-width: 700px;
+  }
+  @media only screen and (min-width: 992px) {
+    max-width: 900px;
+  }
+`;
+
+const InfoBlock = styled.div`
+  margin-bottom: 40px;
+  h2 {
+    margin: 0;
+    margin-bottom: 30px;
+    font-size: 22px;
+  }
+`;

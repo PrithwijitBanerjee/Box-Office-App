@@ -8,6 +8,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import GlobalStyles from './styled_css/GlobalStyles';
 // Create a client
 const queryClient = new QueryClient(); // globally declared...
 
@@ -15,16 +16,18 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <Router>
-          <Routes>
-            <Route path='/' element={<MainLayouts />}>
-              <Route path='/' element={<Home />} />
-              <Route path='starred' element={<Starred />} />
-              <Route path='*' element={<NotFound />} />
-            </Route>
-            <Route path='/show/:showId' element={<ShowDetail />} />
-          </Routes>
-        </Router>
+        <GlobalStyles>
+          <Router>
+            <Routes>
+              <Route path='/' element={<MainLayouts />}>
+                <Route path='/' element={<Home />} />
+                <Route path='starred' element={<Starred />} />
+                <Route path='*' element={<NotFound />} />
+              </Route>
+              <Route path='/show/:showId' element={<ShowDetail />} />
+            </Routes>
+          </Router>
+        </GlobalStyles>
       </QueryClientProvider>
     </>
   );

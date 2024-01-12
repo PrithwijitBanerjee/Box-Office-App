@@ -3,20 +3,21 @@ import { getPeopleRes, getShowsRes } from "../utils/tvMazeApi";
 import FormElement from "../components/FormElement";
 import ShowGrid from "../components/shows/ShowGrid";
 import ActorGrid from "../components/actors/ActorGrid";
-import {useQuery} from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { useSearchStr } from "../lib/useSearchStr";
+import {TextCenter} from '../styled_css/common/TextCenter'
 const Home = () => {
   const [filter, setFilter] = useState({})
 
-  const { data:apiRes, error:apiErr,isLoading } = useQuery({
-      queryKey: ['search', filter],
-      queryFn: () => filter?.statusRes ? getShowsRes(filter.q) : getPeopleRes(filter.q),
-      // ⬇️ disabled as long as the filter is empty
-      enabled: !!filter.q || !!filter.statusRes,
-      refetchOnWindowFocus: false
+  const { data: apiRes, error: apiErr, isLoading } = useQuery({
+    queryKey: ['search', filter],
+    queryFn: () => filter?.statusRes === "shows" ? getShowsRes(filter.q) : getPeopleRes(filter.q),
+    // ⬇️ disabled as long as the filter is empty
+    enabled: !!filter.q || !!filter.statusRes,
+    refetchOnWindowFocus: false
   })
   // const [searchStr, setSearchStr] = useState('');
-     const [searchStr, setSearchStr] = useSearchStr(); //custom hooks... 
+  const [searchStr, setSearchStr] = useSearchStr(); //custom hooks... 
   // const [apiRes, setApiRes] = useState(null);
 
   const [statusRes, setStatusRes] = useState('shows');
@@ -39,7 +40,7 @@ const Home = () => {
     // } catch (error) {
     //   setApiErr(error?.message);
     // }
-    setFilter({q:searchStr,statusRes});
+    setFilter({ q: searchStr, statusRes });
   }
 
   const handleSelection = e => {
@@ -47,22 +48,21 @@ const Home = () => {
   }
 
   const RenderApiRes = () => { // Nested Component inside parent component...
-    if(isLoading)
-    {
+    if (isLoading) {
       return <>
-          <div>loading...</div>
+        <TextCenter>loading...</TextCenter>
       </>
     }
     if (apiRes && apiRes?.length === 0) {
       return <>
         <div>
-          <h3>...No Results Found...</h3>
+          <TextCenter>...No Results Found...</TextCenter>
         </div>
       </>
     }
     return <>
       {
-        apiRes && apiRes[0]?.show ? <ShowGrid shows={apiRes}/> : <ActorGrid actors={apiRes}/>
+        apiRes && apiRes[0]?.show ? <ShowGrid shows={apiRes} /> : <ActorGrid actors={apiRes} />
       }
     </>
   }

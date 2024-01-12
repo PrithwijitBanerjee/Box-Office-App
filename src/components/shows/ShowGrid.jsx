@@ -1,4 +1,5 @@
 import { useStarredShows } from "../../lib/useStarredShows"
+import { FlexGrid } from "../../styled_css/common/FlexGrid";
 import ShowCard from "./ShowCard"
 // import { useEffect, useReducer } from "react"
 
@@ -39,7 +40,7 @@ const ShowGrid = ({ shows }) => {
         isStarIdPresent ? dispatch({ type: 'UNSTAR', showId }) : dispatch({ type: 'STAR', showId })
     }
     return (
-        <>
+        <FlexGrid>
             {
                 shows && shows?.map(item => (
                     <ShowCard
@@ -53,7 +54,7 @@ const ShowGrid = ({ shows }) => {
                     />
                 ))
             }
-        </>
+        </FlexGrid>
     )
 }
 

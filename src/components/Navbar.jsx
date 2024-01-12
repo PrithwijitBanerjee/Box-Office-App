@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
+import { LinkStyled, NavList } from "../styled_css/Navs";
 
 //Global Variable.....
 const LINKS = [
@@ -15,16 +16,16 @@ const LINKS = [
 const Navbar = () => {
     return (
         <>
-            <ul>
+            <NavList>
                 {
                     LINKS && LINKS?.map(item => (
                             <li key={item?.to}>
-                                <Link to={item?.to}>{item?.name}</Link>
+                                <LinkStyled to={item?.to}>{item?.name}</LinkStyled>
                             </li>
                         )
                     )
                 }
-            </ul>
+            </NavList>
         </>
     )
 }

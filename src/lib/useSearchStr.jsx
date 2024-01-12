@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
 
-const usePersistedState = (initialState,sessionKey) => { //custom hooks...
-   const [state,setState] = useState(() => {
+const usePersistedState = (initialState, sessionKey) => { //custom hooks...
+    const [state, setState] = useState(() => {
         let isPersistedValue = JSON.parse(sessionStorage.getItem(sessionKey));
-        if(isPersistedValue !== null || isPersistedValue !== undefined || isPersistedValue !== '')
-        {
+        if (isPersistedValue !== null || isPersistedValue !== undefined || isPersistedValue !== '') {
             return isPersistedValue;
-        }else{
+        } else {
             return initialState;
         }
-   });
-   useEffect(() =>{
-        sessionStorage.setItem(sessionKey,JSON.stringify(state));
-   },[state,sessionKey]);
 
-   return [state,setState];
+    });
+    useEffect(() => {
+        sessionStorage.setItem(sessionKey, JSON.stringify(state));
+    }, [state, sessionKey]);
+
+    return [state, setState];
 };
 
 
 export const useSearchStr = () => { //custom hooks built on another custom hooks...
-    return usePersistedState('','searchStr');
+    return usePersistedState("ABC", 'searchStr');
 }

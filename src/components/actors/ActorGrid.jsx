@@ -1,7 +1,8 @@
+import { FlexGrid } from '../../styled_css/common/FlexGrid'
 import ActorCard from './ActorCard'
 const ActorGrid = ({actors}) => {
   return (
-        <>
+        <FlexGrid>
             {
                 actors && actors?.map(item =>(
                     <ActorCard 
@@ -16,7 +17,7 @@ const ActorGrid = ({actors}) => {
                     />
                 ))
             }
-        </>
+        </FlexGrid>
   )
 }
 
