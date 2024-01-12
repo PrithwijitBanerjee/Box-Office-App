@@ -4,7 +4,7 @@ const AppTitle = () => {
         <>
             <TitleWrapper>
                 <h1>Box Office App</h1>
-                <h4>Are You looking for a movie or an actor?</h4>
+                <p>Are You looking for a movie or an actor?</p>
             </TitleWrapper>
         </>
   )
